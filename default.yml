@@ -1,0 +1,38 @@
+---
+#cloud-config
+
+# Import SSH keys from GitHub
+ssh_import_github:
+  - andrewrothstein
+
+# Update package list and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+
+# Install useful packages
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - git
+  - tmux
+  - htop
+  - python3
+  - python3-dev
+  - pipx
+
+
+# Set timezone
+timezone: US/Eastern
+
+# Final message when cloud-init is done
+final_message: "The system is finally up, after $UPTIME seconds"
+
+# Write a file with information for the user
+write_files:
+  - path: /etc/motd
+    content: |
+      Cloud instance initialized with SSH keys from GitHub user: andrewrothstein
+      For issues, please contact the system administrator.
+    permissions: '0644'
